@@ -14,9 +14,14 @@ class ShippingCentersExtension < Spree::Extension
   
   def activate
 
-    # make your helper avaliable in all views
-    # Spree::BaseController.class_eval do
-    #   helper YourHelper
-    # end
+    ProductGroup.class_eval do
+      
+      # Is a producted in the group (does it match the group's criteria?)
+      def include?(product)
+        !! products.find_by_id(product.id)
+      end
+      
+    end
+
   end
 end
