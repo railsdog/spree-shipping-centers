@@ -14,6 +14,12 @@ class ShippingCentersExtension < Spree::Extension
   
   def activate
 
+    Product.class_eval do
+      def leadtime
+        ShippingCenter.leadtime_for_product(self)
+      end
+    end
+    
     ProductGroup.class_eval do
       
       # Is a producted in the group (does it match the group's criteria?)
